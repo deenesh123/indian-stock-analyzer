@@ -411,11 +411,12 @@ html, body, [class*="css"] { font-family: 'Outfit', sans-serif; }
 #MainMenu, footer, header { visibility: hidden; }
 .stApp {
   background:
-    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(123,44,191,0.25), transparent 50%),
-    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(0,245,212,0.12), transparent 45%),
-    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(247,37,133,0.1), transparent 40%),
-    linear-gradient(165deg, #07070c 0%, #0e0e16 40%, #0a0f18 100%);
+    linear-gradient(165deg, rgba(7,7,12,0.88) 0%, rgba(14,14,22,0.90) 45%, rgba(10,15,24,0.92) 100%),
+    url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 .hero-title { font-size: 2.2rem; font-weight: 800;
   background: linear-gradient(135deg, #00f5d4, #7b2cbf, #f72585);
@@ -479,7 +480,7 @@ if not st.session_state.get("authenticated"):
         t_in, t_up = st.tabs(["Sign In", "Create Account"])
         with t_in:
             with st.form("login_form"):
-                _u = st.text_input("Username", placeholder="admin")
+                _u = st.text_input("Username", placeholder="Your username")
                 _p = st.text_input("Password", type="password")
                 if st.form_submit_button("Sign In", type="primary", use_container_width=True):
                     ok, uobj, msg = login_user(_u, _p)
@@ -490,7 +491,7 @@ if not st.session_state.get("authenticated"):
                         st.rerun()
                     else:
                         st.error(msg)
-            st.caption("Default admin: **admin** / **admin123**")
+            st.caption("Welcome back. Enter your credentials to continue.")
         with t_up:
             with st.form("reg_form"):
                 _nu = st.text_input("Username", key="reg_u")
@@ -527,7 +528,7 @@ if not has_access(_user, _settings):
     c1, c2, c3 = st.columns([1, 1.2, 1])
     with c2:
         st.link_button("Unlock Full Access", _link, type="primary", use_container_width=True)
-        st.caption("After payment, ask admin to mark your account as paid.")
+        st.caption("After payment, your access is activated within a short time.")
         if st.button("Sign out", use_container_width=True):
             st.session_state.clear()
             st.rerun()
@@ -1516,36 +1517,31 @@ elif page == "⚙️ Settings":
                     st.success("Password updated")
 
 else:
-    st.markdown('<p class="main-header">ℹ️ About This Project</p>', unsafe_allow_html=True)
     st.markdown("""
-    ### Indian Stock Market Analyzer — Full Edition
+    <div class="brand-header">
+      <div class="brand-logo">◈</div>
+      <div class="brand-text">
+        <h1>About</h1>
+        <p>Your smart companion for Indian markets</p>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown("""
+    ### What you can do
 
-    A complete research, screening & tracking tool for the Indian equity markets (NSE & BSE).
+    - **Dashboard** — Live market overview and Nifty 50 movers  
+    - **Trending** — Momentum, volume, value and quality screens  
+    - **Research** — Company ratios, charts and related news  
+    - **Best Stocks** — Ranked ideas based on a research score  
+    - **News** — Market and company headlines  
+    - **Option Chain** — Calls, puts and open interest  
+    - **Watchlist & Portfolio** — Track stocks and holdings with live P&L  
+    - **Screener** — Filter stocks by your own criteria  
+    - **Alerts** — Price alerts when levels are crossed  
 
-    #### Features
-    | Module | Description |
-    |--------|-------------|
-    | **Dashboard** | Live indices + full Nifty 50 + sector performance |
-    | **Trending Screens** | Momentum, Volume, Value, Quality, High Beta scanners |
-    | **Stock Research** | Deep dive — ratios, charts, financial statements |
-    | **Best Stocks** | Composite investment score ranking |
-    | **Option Chain** | Live calls/puts, OI charts, Put-Call Ratio |
-    | **Watchlist & Portfolio** | Track stocks + holdings with live P&L |
-    | **Custom Screener** | Build your own filters on Nifty 50 |
-    | **Alerts** | Price alerts with optional email notifications |
+    ---
 
-    #### Data Sources
-    - **Yahoo Finance** (via `yfinance`) — prices, fundamentals, option chains
-    - Symbols use `.NS` (NSE) or `.BO` (BSE) suffixes
-
-    #### Tech Stack
-    Python · Streamlit · yfinance · pandas · plotly
-
-    #### Disclaimer
-    > This tool is for **educational and research purposes only**.  
-    > It does **not** constitute investment advice.  
-    > Past performance is not indicative of future results.  
-    > Always consult a SEBI-registered advisor before investing.
+    **Important**  
+    This platform is for research and learning only. It is **not** investment advice.  
+    Always do your own research before making any financial decision.
     """)
-    st.markdown("---")
-    st.markdown("Built with ❤️ for Indian retail investors")
